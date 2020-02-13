@@ -9,8 +9,7 @@ class MarketingStream(Stream):
     stream = 'marketing'
 
     meta_fields = dict(
-        # key_properties=['snapped_lat'],
-        # api_path='/score',
+        key_properties=['pivotValue'],
         replication_method='full',
         selected_by_default=False
 
@@ -18,7 +17,9 @@ class MarketingStream(Stream):
 
     schema = {
         "properties": {
-
+            'pivotValue':{
+                "type":"string",
+            }
         }
     }
 

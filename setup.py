@@ -20,7 +20,7 @@ setup(
     ],
     entry_points="""
     [console_scripts]
-    tap-linkedin_marketing=tap_linkedin_marketing:main
+    tap-linkedin-marketing=tap_linkedin_marketing:main
     """,
     packages=["tap_linkedin_marketing"],
     include_package_data=True,

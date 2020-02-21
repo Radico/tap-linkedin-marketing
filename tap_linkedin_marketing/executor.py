@@ -18,23 +18,29 @@ class LinkedInExecutor(TapExecutor):
         super(LinkedInExecutor, self).__init__(streams, args, client)
 
         self.url = 'https://api.linkedin.com/v2/adAnalyticsV2'
-        self.authorization = self.client.config['Authorization']
+        self.authorization = self.client.config['access_token']
 
     def call_full_stream(self, stream):
         """
         Method to call all fully synced streams
         """
+        pivots = (
+            "CAMPAIGN",
+            "CREATIVE",
+            "CAMPAIGN_GROUP",
+            "CONVERSION",
+        )
+        for pivot in pivots:
+            request_config = {
+                'url': self.url,
+                'headers': self.build_headers(),
+                'params': self.build_params(pivot),
+                'run': True
+            }
 
-        request_config = {
-            'url': self.generate_api_url(stream),
-            'headers': self.build_headers(),
-            'params': self.build_params(),
-            'run': True
-        }
+            LOGGER.info("Extracting {s} ".format(s=stream))
 
-        LOGGER.info("Extracting {s} ".format(s=stream))
-
-        self.call_stream(stream, request_config)
+            self.call_stream(stream, request_config)
 
     def call_stream(self, stream, request_config):
         res = self.client.make_request(request_config)
@@ -49,14 +55,14 @@ class LinkedInExecutor(TapExecutor):
 
         transform_write_and_count(stream, records)
 
-    def build_params(self):
+    def build_params(self, pivot):
         return {
             "q": "analytics",
-            "pivot": "CAMPAIGN",
-            "dateRange.start.day": 1,
+            "pivot": pivot,
+            "dateRange.start.day": 12,
             "dateRange.start.month": 1,
-            "dateRange.start.year": 2015,
-            "timeGranularity": "ALL",
+            "dateRange.start.year": 2019,
+            "timeGranularity": "DAILY",
             "accounts[0]": "urn:li:sponsoredAccount:507638420"
         }
 
@@ -65,8 +71,5 @@ class LinkedInExecutor(TapExecutor):
         Included in all API calls
         """
         return {
-            {
-                "Accept": "application/json;charset=UTF-8", # necessary for returning JSON
-                "Authorization" : self.authorization
-            }
+                "Authorization": self.authorization
         }

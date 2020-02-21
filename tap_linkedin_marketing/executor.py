@@ -71,6 +71,6 @@ class LinkedInExecutor(TapExecutor):
         Included in all API calls
         """
         return {
-                "Authorization": self.access_token,
+                "Authorization": "Bearer {}".format(self.access_token),
                 "Accept": "application/json;charset=UTF-8"
         }

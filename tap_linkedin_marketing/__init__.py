@@ -6,7 +6,7 @@ from .executor import LinkedInExecutor
 
 
 REQUIRED_CONFIG_KEYS = [
-    "Authorization",
+    "access_token",
 ]
 
 STREAMS = [

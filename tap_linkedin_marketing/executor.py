@@ -59,8 +59,8 @@ class LinkedInExecutor(TapExecutor):
         return {
             "q": "analytics",
             "pivot": pivot,
-            "dateRange.start.day": 12,
-            "dateRange.start.month": 1,
+            "dateRange.start.day": 1,
+            "dateRange.start.month": 12,
             "dateRange.start.year": 2019,
             "timeGranularity": "DAILY",
             "accounts[0]": "urn:li:sponsoredAccount:507638420"

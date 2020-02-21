@@ -10,7 +10,7 @@ class MarketingStream(Stream):
 
     meta_fields = dict(
         key_properties=['pivotValue'],
-        replication_method='full',
+        replication_method='full_table',
         selected_by_default=False
 
     )

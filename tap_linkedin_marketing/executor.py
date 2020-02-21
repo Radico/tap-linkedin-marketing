@@ -18,7 +18,7 @@ class LinkedInExecutor(TapExecutor):
         super(LinkedInExecutor, self).__init__(streams, args, client)
 
         self.url = 'https://api.linkedin.com/v2/adAnalyticsV2'
-        self.authorization = self.client.config['access_token']
+        self.access_token = self.client.config['access_token']
 
     def call_full_stream(self, stream):
         """
@@ -71,6 +71,6 @@ class LinkedInExecutor(TapExecutor):
         Included in all API calls
         """
         return {
-                "Authorization": self.authorization,
+                "Authorization": self.access_token,
                 "Accept": "application/json;charset=UTF-8"
         }
